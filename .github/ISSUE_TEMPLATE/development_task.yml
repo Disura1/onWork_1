@@ -1,0 +1,54 @@
+name: Development Task
+description: Define an approved implementation task
+title: "[Task]: "
+body:
+  - type: input
+    id: module
+    attributes:
+      label: Module
+      placeholder: Authentication, Job Seeker Profile, Job Management, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: objective
+    attributes:
+      label: Objective
+      description: Explain the expected outcome.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Approved scope
+      placeholder: List the frontend, backend, API, database or documentation work included.
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Completion criteria
+      placeholder: List the conditions that must be satisfied before review.
+    validations:
+      required: true
+  - type: textarea
+    id: dependencies
+    attributes:
+      label: Dependencies and shared ownership
+      description: Mention related model, API, status, service or shared-layout owners. Write None when not applicable.
+  - type: input
+    id: branch
+    attributes:
+      label: Planned branch name
+      placeholder: feature/task-name
+  - type: input
+    id: clickup
+    attributes:
+      label: Related ClickUp task
+      placeholder: Task name or link
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: The task is within the approved MVP and does not duplicate another member's ownership.
+          required: true

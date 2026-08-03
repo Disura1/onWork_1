@@ -1,0 +1,72 @@
+name: Bug Report
+description: Report a reproducible defect in the Job Portal System
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Provide clear reproduction details. Do not include credentials, real CVs, personal data or confidential screenshots.
+  - type: input
+    id: module
+    attributes:
+      label: Affected module
+      placeholder: Authentication, Job Management, Applications, Admin, etc.
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Problem description
+      description: Explain what went wrong.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Go to...
+        2. Click...
+        3. Observe...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+    validations:
+      required: true
+  - type: input
+    id: branch
+    attributes:
+      label: Branch or pull request
+      placeholder: feature/... or PR link
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Safe evidence
+      description: Add non-confidential screenshots, logs or reproduction evidence.
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Suggested priority
+      options:
+        - Low
+        - Medium
+        - High
+        - Critical
+    validations:
+      required: true
+  - type: checkboxes
+    id: security
+    attributes:
+      label: Security confirmation
+      options:
+        - label: I confirmed that this issue contains no secrets, personal data or confidential company information.
+          required: true

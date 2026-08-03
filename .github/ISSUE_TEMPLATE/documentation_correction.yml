@@ -1,0 +1,37 @@
+name: Documentation Correction
+description: Request a correction to approved project documentation
+title: "[Docs]: "
+body:
+  - type: input
+    id: document
+    attributes:
+      label: Document or file
+      placeholder: docs/... or document title
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Current content or problem
+      description: Explain what is unclear, incorrect or outdated.
+    validations:
+      required: true
+  - type: textarea
+    id: proposed
+    attributes:
+      label: Proposed correction
+      description: Provide the corrected wording or required change.
+    validations:
+      required: true
+  - type: textarea
+    id: reason
+    attributes:
+      label: Reason and affected areas
+      description: Explain why the change is required and which members, modules or tasks are affected.
+    validations:
+      required: true
+  - type: input
+    id: approval
+    attributes:
+      label: Approval or source of final instruction
+      placeholder: Team Lead, Project Manager or supervisor instruction

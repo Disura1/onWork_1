@@ -1,0 +1,71 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Environment files and secrets
+.env
+.env.*
+**/.env
+**/.env.*
+!.env.example
+!**/.env.example
+
+# Build outputs
+dist/
+**/dist/
+build/
+**/build/
+.vite/
+
+# Test and coverage outputs
+coverage/
+**/coverage/
+.nyc_output/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Runtime and temporary files
+pids/
+*.pid
+*.seed
+*.pid.lock
+tmp/
+temp/
+.cache/
+
+# Uploads and local data
+uploads/
+**/uploads/
+local-data/
+*.sqlite
+*.sqlite3
+
+# Private Postman environments
+*.postman_environment.json
+postman/environments/private/
+
+# Editor and IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Operating-system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Certificates and keys
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local overrides
+*.local

@@ -1,0 +1,62 @@
+name: Integration Issue
+description: Record a cross-module, shared-model, API or branch integration problem
+title: "[Integration]: "
+body:
+  - type: textarea
+    id: affected
+    attributes:
+      label: Affected modules or members
+      description: Identify every affected area and owner.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Integration problem
+      description: Explain the conflict, dependency or failure.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Shared area
+      options:
+        - Model
+        - API
+        - Status constants
+        - Authentication or authorization
+        - Frontend shared component
+        - Environment or dependency
+        - Merge conflict
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Current impact
+      description: Explain what cannot continue or what may break.
+    validations:
+      required: true
+  - type: textarea
+    id: attempted
+    attributes:
+      label: Checks or solutions already attempted
+  - type: textarea
+    id: decision
+    attributes:
+      label: Decision or support required
+      description: State the exact Team Lead or owner decision needed.
+    validations:
+      required: true
+  - type: input
+    id: branches
+    attributes:
+      label: Related branches or pull requests
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety confirmation
+      options:
+        - label: I did not resolve the conflict by deleting or overwriting another member's work.
+          required: true
