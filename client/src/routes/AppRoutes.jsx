@@ -11,6 +11,8 @@ import ForgotPasswordPage from '../features/authentication/ForgotPasswordPage.js
 import ResetPasswordPage from '../features/authentication/ResetPasswordPage.jsx';
 import MyReportedJobs from '../features/reported-jobs/job-seeker/pages/MyReportedJobs.jsx';
 import ReportDetails from '../features/reported-jobs/job-seeker/pages/ReportDetails.jsx';
+import ApplicantList from '../features/applicant-management/pages/ApplicantList.jsx';
+import ApplicantDetails from '../features/applicant-management/pages/ApplicantDetails.jsx';
 import AboutPage from '../features/help-support/pages/AboutPage.jsx';
 import ContactPage from '../features/help-support/pages/ContactPage.jsx';
 import FAQPage from '../features/help-support/pages/FAQPage.jsx';
@@ -68,6 +70,29 @@ function AppRoutes() {
           <ProtectedRoute allowedRoles={[USER_ROLES.JOB_SEEKER]}>
             <AuthenticatedLayout>
               <ReportDetails />
+            </AuthenticatedLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      {/* Applicant Management - Employer ONLY (Admin removed) */}
+      <Route
+        path="/applicants"
+        element={
+          <ProtectedRoute allowedRoles={[USER_ROLES.EMPLOYER]}>
+            <AuthenticatedLayout>
+              <ApplicantList />
+            </AuthenticatedLayout>
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/applicants/:id"
+        element={
+          <ProtectedRoute allowedRoles={[USER_ROLES.EMPLOYER]}>
+            <AuthenticatedLayout>
+              <ApplicantDetails />
             </AuthenticatedLayout>
           </ProtectedRoute>
         }
