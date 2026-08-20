@@ -130,7 +130,7 @@ function AppRoutes() {
         path="/applicants"
         element={
           <ProtectedRoute allowedRoles={[USER_ROLES.EMPLOYER]}>
-            <AuthenticatedLayout>
+            <AuthenticatedLayout showFooter>
               <ApplicantList />
             </AuthenticatedLayout>
           </ProtectedRoute>
@@ -141,7 +141,7 @@ function AppRoutes() {
         path="/applicants/:id"
         element={
           <ProtectedRoute allowedRoles={[USER_ROLES.EMPLOYER]}>
-            <AuthenticatedLayout>
+            <AuthenticatedLayout showFooter>
               <ApplicantDetails />
             </AuthenticatedLayout>
           </ProtectedRoute>
@@ -152,7 +152,7 @@ function AppRoutes() {
         path="/applicants/:id/cv"
         element={
           <ProtectedRoute allowedRoles={[USER_ROLES.EMPLOYER]}>
-            <AuthenticatedLayout>
+            <AuthenticatedLayout showFooter>
               <ApplicantCvView />
             </AuthenticatedLayout>
           </ProtectedRoute>
@@ -222,7 +222,7 @@ function AppRoutes() {
         path="/employer/dashboard"
         element={
           <ProtectedRoute allowedRoles={[USER_ROLES.EMPLOYER]}>
-            <AuthenticatedLayout>
+            <AuthenticatedLayout showFooter>
               <EmployerDashboard />
             </AuthenticatedLayout>
           </ProtectedRoute>
@@ -234,7 +234,7 @@ function AppRoutes() {
         path="/employer/company"
         element={
           <ProtectedRoute allowedRoles={[USER_ROLES.EMPLOYER]}>
-            <AuthenticatedLayout>
+            <AuthenticatedLayout showFooter>
               <ViewCompanyProfile />
             </AuthenticatedLayout>
           </ProtectedRoute>
@@ -245,7 +245,7 @@ function AppRoutes() {
         path="/company/profile"
         element={
           <ProtectedRoute allowedRoles={[USER_ROLES.EMPLOYER]}>
-            <AuthenticatedLayout>
+            <AuthenticatedLayout showFooter>
               <ViewCompanyProfile />
             </AuthenticatedLayout>
           </ProtectedRoute>
@@ -255,7 +255,7 @@ function AppRoutes() {
         path="/employer/company/create"
         element={
           <ProtectedRoute allowedRoles={[USER_ROLES.EMPLOYER]}>
-            <AuthenticatedLayout>
+            <AuthenticatedLayout showFooter>
               <CreateCompanyProfile />
             </AuthenticatedLayout>
           </ProtectedRoute>
@@ -265,7 +265,7 @@ function AppRoutes() {
         path="/employer/company/edit"
         element={
           <ProtectedRoute allowedRoles={[USER_ROLES.EMPLOYER]}>
-            <AuthenticatedLayout>
+            <AuthenticatedLayout showFooter>
               <EditCompanyProfile />
             </AuthenticatedLayout>
           </ProtectedRoute>
