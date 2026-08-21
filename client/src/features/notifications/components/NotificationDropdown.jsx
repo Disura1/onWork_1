@@ -1,5 +1,6 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import ConfirmationModal from '../../../components/common/ConfirmationModal.jsx';
 import DropdownItem from './DropdownItem.jsx';
 
 const NotificationDropdown = ({
@@ -9,11 +10,16 @@ const NotificationDropdown = ({
   onClose,
   onMarkAsRead,
   onMarkAllAsRead,
+  onClear,
+  onClearAll,
   triggerRef,
   actionError,
 }) => {
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
+  const modalRef = useRef(null);
+  const [clearAllConfirmation, setClearAllConfirmation] = useState(false);
+  const [clearingAll, setClearingAll] = useState(false);
 
   // Close the dropdown when clicking anywhere outside it
   useEffect(() => {
@@ -22,11 +28,12 @@ const NotificationDropdown = ({
     const handleClickOutside = (event) => {
       const clickedInsideDropdown = dropdownRef.current?.contains(event.target);
       const clickedTrigger = triggerRef?.current?.contains(event.target);
+      const clickedInsideModal = modalRef.current?.contains(event.target);
 
       // Ignore clicks on the bell itself — its own onClick already
       // handles toggling open/closed, so closing here too would race
       // with that toggle and cause an open->close->reopen flicker.
-      if (!clickedInsideDropdown && !clickedTrigger) {
+      if (!clickedInsideDropdown && !clickedTrigger && !clickedInsideModal) {
         onClose();
       }
     };
@@ -35,12 +42,28 @@ const NotificationDropdown = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isOpen, onClose, triggerRef]);
 
+  // Reset portaled modal state whenever the dropdown closes.
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (!isOpen) setClearAllConfirmation(false);
+  }, [isOpen]);
+
   // If the dropdown isn't open, render nothing
   if (!isOpen) return null;
 
   const handleViewAll = () => {
     navigate('/notifications');
     onClose(); // Close the dropdown when navigating away
+  };
+
+  const handleClearAll = async () => {
+    setClearingAll(true);
+    try {
+      await onClearAll();
+      setClearAllConfirmation(false);
+    } finally {
+      setClearingAll(false);
+    }
   };
 
   const hasUnread = notifications.some((n) => n.status === 'Unread');
@@ -57,14 +80,26 @@ const NotificationDropdown = ({
         {/* 1. Header */}
         <div className="px-4 py-3 flex justify-between items-center border-b border-[#E2E8F0]">
           <h3 className="font-bold text-[16px] text-[#0F172A]">Notifications</h3>
-          {hasUnread && (
-            <button
-              onClick={onMarkAllAsRead}
-              className="text-[13px] text-[#2563EB] hover:underline font-medium"
-            >
-              Mark all as read
-            </button>
-          )}
+          <div className="flex items-center gap-3">
+            {hasUnread && (
+              <button
+                type="button"
+                onClick={onMarkAllAsRead}
+                className="text-[13px] text-[#2563EB] hover:underline font-medium"
+              >
+                Mark all as read
+              </button>
+            )}
+            {notifications.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setClearAllConfirmation(true)}
+                className="text-[13px] text-[#64748B] hover:text-[#0F172A] hover:underline font-medium"
+              >
+                Clear All
+              </button>
+            )}
+          </div>
         </div>
 
         {/* 2. Tabs — only "All" is functional; Applications/Jobs/System removed
@@ -97,7 +132,12 @@ const NotificationDropdown = ({
             // List Container
             <div className="flex flex-col">
               {notifications.map((notif) => (
-                <DropdownItem key={notif._id} notification={notif} onMarkAsRead={onMarkAsRead} />
+                <DropdownItem
+                  key={notif._id}
+                  notification={notif}
+                  onMarkAsRead={onMarkAsRead}
+                  onClear={onClear}
+                />
               ))}
             </div>
           )}
@@ -113,6 +153,19 @@ const NotificationDropdown = ({
           </button>
         </div>
       </div>
+
+      <ConfirmationModal
+        isOpen={clearAllConfirmation}
+        onClose={() => {
+          if (!clearingAll) setClearAllConfirmation(false);
+        }}
+        onConfirm={handleClearAll}
+        ref={modalRef}
+        title="Clear all notifications?"
+        description="This will permanently remove ALL of your notifications, not just the notifications currently visible in this dropdown."
+        confirmText="Clear All"
+        isLoading={clearingAll}
+      />
     </div>
   );
 };
