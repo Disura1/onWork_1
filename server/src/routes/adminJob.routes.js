@@ -8,13 +8,16 @@ import { USER_ROLES } from '../constants/statuses.js';
 const router = Router();
 
 // Protect all admin job routes
-router.use(protect, requireRole(USER_ROLES.ADMIN));
+router.use(protect, requireRole(USER_ROLES.ADMIN, USER_ROLES.SUPERADMIN));
 
 router.get(
   '/',
   validate(adminJobValidation.getJobsQuerySchema, 'query'),
   adminJobController.getJobs
 );
+
+router.get('/stats', adminJobController.getJobStats);
+
 
 router.get(
   '/:jobId',
